@@ -1,8 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <span class="title"><h1>{% block title %} The Home Page of FlaskApp {% endblock %}</h1></span>
-    <div class="content">
-        <h2>This is the main Flask blueprint</h2>
-    </div>
+
+<div class="instructions">
+    <h2>Check if your healers are using their cooldowns at the correct time!</h2>
+    <p>Are your healers using their cds correctly? Want to check quickly? Look no further!</p>
+</div>
+<form action="" id="main-form">
+    <fieldset id="boss-form">
+        <span>
+            <h3>1: Choose a boss</h3>
+        </span>
+        <div id="radio-button-wrapper">
+            {% for boss in bosses %}
+
+            <label class="image-radio">
+                <input type="radio" name="boss-list" id="{{boss.id}}" value="{{boss.name}}" checked>
+                <img src="{{boss.icon}}" alt="Option 1">
+            </label>
+
+            {% endfor %}
+        </div>
+    </fieldset>
+
+    <fieldset id="spell-form">
+        <span>
+            <h3>2: Add a cooldown you want to check</h3>
+        </span>
+        <input type="text" class="spells" placeholder="Revival">
+        <button class="btn add-btn" type="button">Add</button>
+    </fieldset>
+
+    <fieldset id="timer-form">
+        <span>
+            <h3>3: Add the time the cooldown was assigned</h3>
+        </span>
+            <input type="text" name="" class="timers" placeholder="00.10">
+            
+    </fieldset>
+
+    <fieldset id="log-form">
+        <span>
+            <h3>4: Url of log you want to check</h3>
+            <input type="text" id = "log-input" placeholder="https://www.warcraftlogs.com/reports/mCnZyt9qkzMPraNF#fight=last">
+        </span>
+    </fieldset>
+</form>
+
 {% endblock %}
