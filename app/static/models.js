@@ -5,15 +5,13 @@ class Spell {
         this.name = name;
         this.icon = icon;
     }
+
+    toString() {
+        return this.name
+    }
 }
 
-function filterClass(arr, key) {
-    /* Helper function for filtering the results of the API object. Can choose which key
-    to filter by */
-    const spellNames = [];
-    for (let i = 0; i < arr.length; i++) {
-        spellNames.push(arr[i][key])
-    }
-    return spellNames;
+function filterClass(obj) {
+    return obj.map(element => element.toString())
 }
 

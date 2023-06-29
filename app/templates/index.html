@@ -27,8 +27,10 @@
         <span>
             <h3>2: Add a cooldown you want to check</h3>
         </span>
-        <input type="text" class="spells" placeholder="Revival" id="spells-input-0">
-        <ul class="suggestions" id="spell-suggestions"></ul>
+        <div class="suggestions-box">
+            <input type="text" class="spells" placeholder="Revival" id="spells-input-0">
+            <ul class="suggestions" id="spell-suggestions"></ul>
+        </div>
         <button class="btn add-btn" type="button">Add</button>
     </fieldset>
 
@@ -36,14 +38,15 @@
         <span>
             <h3>3: Add the time the cooldown was assigned</h3>
         </span>
-            <input type="text" name="" class="timers" placeholder="00.10">
-            
+        <input type="text" name="" class="timers" placeholder="00.10">
+
     </fieldset>
 
     <fieldset id="log-form">
         <span>
             <h3>4: Url of log you want to check</h3>
-            <input type="text" id = "log-input" placeholder="https://www.warcraftlogs.com/reports/mCnZyt9qkzMPraNF#fight=last">
+            <input type="text" id="log-input"
+                placeholder="https://www.warcraftlogs.com/reports/mCnZyt9qkzMPraNF#fight=last">
         </span>
     </fieldset>
 </form>
