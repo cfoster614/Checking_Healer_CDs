@@ -11,6 +11,8 @@ class Boss:
         self.icon = icon
     def __repr__(self):
         return f"<id={self.id}, name={self.name}, icon={self.icon}>"
+    
+    
      
         
 class Spell:
@@ -23,6 +25,14 @@ class Spell:
         
     def __repr__(self):
         return f"<id={self.id}, name={self.name}, icon={self.icon}>"
+    
+    
+def serialized_spell(self):
+    return {
+        "id": self.id,
+        "name": self.name,
+        "icon": self.icon
+    }
 
     
 class Query:

@@ -508,6 +508,7 @@ def get_names(list):
             icon = (f"{url}{l['icon']}")
             )
             spell_list.append(new_spell)
+            
         
     return spell_list
 
