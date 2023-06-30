@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, jsonify
+from flask import render_template, redirect, url_for, jsonify, request
 
 from app.main import bp
 
@@ -20,8 +20,18 @@ def get_api_spells():
 def index():
     return redirect('/healers_home')
 
-@bp.route('/healers_home')
+@bp.route('/healers_home', methods=['GET'])
 def homepage():
     bosses = get_boss_list()
     spells = get_spell_info()
     return render_template('index.html', bosses=bosses, spells=spells)
+
+@bp.route('/healers/results', methods=['POST', 'GET'])
+def show_results():
+    boss = request.form.get('boss-list')
+    spells = request.form.get('spells')
+    report_url = request.form.get('log-input')
+    cooldowns = request.form.getlist('spells')
+    print('************************')
+    print(spells)
+    return render_template('results.html', boss=boss, url = report_url, cooldowns = cooldowns)

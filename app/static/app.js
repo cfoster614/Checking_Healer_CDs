@@ -8,7 +8,7 @@ function addSpellHandler() {
      * textInputId is used to create a unique id for each input. 
      */
     $('.suggestions').remove();
-    const newSpellInput = ($('<input>', { type: 'text', class: 'spells', id: `spells-input-${textInputId}` }));
+    const newSpellInput = ($('<input>', { type: 'text', class: 'spells', id: `spells-input-${textInputId}`, name: 'spells' }));
     const newUl = ($('<ul>', { id: 'spell-suggestions', class: 'suggestions' }));
     const newDiv = ($('<div>', { class: 'suggestions-box', id: `suggestions-box-${textInputId}` }));
 
@@ -20,8 +20,6 @@ function addSpellHandler() {
     textInputId += 1;
 
 }
-
-
 
 /** Search the filteredSpells array from showSuggestions function.
  * Return true if the input val is in the array somewhere. 
@@ -78,5 +76,5 @@ function useSuggestion(e) {
 }
 
 function newSuggestionsList() {
-    $('.suggestions').empty();
+    $('.suggestions').empty(); //To ensure no suggestions are shown when clicking a new input.
 }

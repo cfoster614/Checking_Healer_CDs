@@ -1,8 +1,5 @@
 /* For radio inputs since I have taken away the actual radio button itself
 and am just using pictures of the bosses */
-$('input[type=radio]').on('click', function () {
-    $(this).prev().attr('checked', true);
-})
 
 let cachedSpells = [];
 
