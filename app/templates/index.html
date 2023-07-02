@@ -6,50 +6,35 @@
     <h2>Check if your healers are using their cooldowns at the correct time!</h2>
     <p>Are your healers using their cds correctly? Want to check quickly? Look no further!</p>
 </div>
-<form action="/healers/results" id="main-form" method="POST">
-    <fieldset id="boss-form">
-        <span>
-            <h3>1: Choose a boss</h3>
-        </span>
-        <div id="radio-button-wrapper">
-            {% for boss in bosses %}
 
-            <label class="image-radio">
-                <input type="radio" name="boss-list" id="{{boss.id}}" value="{{boss.name}}" checked>
-                <img src="{{boss.icon}}" alt="Option 1">
-            </label>
 
-            {% endfor %}
-        </div>
-    </fieldset>
+    <form id="log-form" action="/healers/results" method="POST">
+        <fieldset id="boss-form">
+            <span>
+                <h3>1: Choose a boss</h3>
+            </span>
+            <div id="radio-button-wrapper"class="radio-wrapper">
+                {% for boss in bosses %}
+    
+                <label class="image-radio">
+                    <input type="radio" name="boss-list" id="{{boss.id}}" value="{{boss.id}}" checked>
+                    <img src="{{boss.icon}}" alt="Option 1">
+                </label>
+    
+                {% endfor %}
+            </div>
+        </fieldset>
 
-    <fieldset id="spell-form">
-        <span>
-            <h3>2: Add a cooldown you want to check</h3>
-        </span>
-        <div class="suggestions-box">
-            <input type="text" class="spells" placeholder="Revival" id="spells-input-0" name="spells">
-            <ul class="suggestions" id="spell-suggestions"></ul>
-        </div>
-        <button class="btn add-btn" type="button">Add</button>
-    </fieldset>
-
-    <fieldset id="timer-form">
-        <span>
-            <h3>3: Add the time the cooldown was assigned</h3>
-        </span>
-        <input type="text" name="" class="timers" placeholder="00.10">
-
-    </fieldset>
-
-    <fieldset id="log-form">
+        <fieldset>
         <span>
             <h3>4: Url of log you want to check</h3>
+        </span>
             <input type="text" id="log-input"
                 placeholder="https://www.warcraftlogs.com/reports/mCnZyt9qkzMPraNF#fight=last" name="log-input">
-        </span>
-    </fieldset>
-    <button>See result!</button>
-</form>
+        </fieldset>
+            <button>Analyze</button>
+           
+    </form>
+    
 
 {% endblock %}

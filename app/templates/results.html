@@ -2,10 +2,48 @@
 
 {% block content %}
 
-<h1>{{boss}}</h1>
-<p>{{url}}</p>
-{% for spell in cooldowns %}
-<p>{{spell}}</p>
-{% endfor %}
+<form id="main-form" method="POST">
+    <fieldset id="encounter-selection" data="encounter">
+        <ul class="list">
+            <li class="item">
+                <div class="flex">
+                    <div class="flex-sub content">
+                        <img src="{{boss.icon}}">
+                    </div>
+                 
+                    <div class="flex-main">
+                        <h2>{{boss.name}}</h2>
+                        <div class="pulls radio-wrapper">
+                            {% set wipe_count = namespace(value=0) %}
+                            {% for e in encounter %}
+                            <label class="radio-pulls">
+                                {% set wipe_count.value = wipe_count.value + 1 %}
+                            <input type="radio" name="pull-list" value="{{e.id}}" checked>
+                                <p>Wipe {{wipe_count.value}} {{e.fightPercentage}}</p>
+                                </label>
+                                {% endfor %}
+                    
+                        </div>
+                    </div>
+                </div>             
+            </li>
+              
+        </ul>
+    </fieldset>
+
+    <fieldset id="spell-form">
+        
+        <div class="spell-input-box"> 
+            <input type="text" class="spells" placeholder="Revival" id="spells-input-0" name="spells">
+            <input type="text" name="" class="timers" placeholder="00.10">
+            <div class="suggestions-box" id="spell-wrapper">
+                <ul class="suggestions" id="spell-suggestions"></ul>
+            </div>
+        </div>
+            <button class="btn add-btn" type="button">Add</button>
+
+    </fieldset>
+    <button>See result!</button>
+</form>
 
 {% endblock %}

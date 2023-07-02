@@ -3,6 +3,7 @@ and am just using pictures of the bosses */
 
 let cachedSpells = [];
 
+
 async function getSpellInfo() {
     //Query the api for spell info.
     if (cachedSpells.length === 0) {
@@ -11,6 +12,7 @@ async function getSpellInfo() {
     }
     return cachedSpells
 }
+
 
 function createNewSpellsClasses(arr) {
     //Turn the array of objects of spells into their own individual classes.
@@ -38,4 +40,8 @@ function createNewSpellsClasses(arr) {
     }
     return cachedSpells
 }
+
+
 getSpellInfo()
+
+

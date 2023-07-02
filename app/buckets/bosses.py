@@ -19,3 +19,8 @@ def get_boss_list():
     ]
     
     return aberrus_bosses
+
+def boss_ids(boss_list):
+    boss_id_list = [l.boss_id for l in boss_list]
+    return boss_id_list
+        

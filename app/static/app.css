@@ -1,9 +1,31 @@
+* {
+    box-sizing:border-box;
+}
+
 body {
     background-color: rgb(29,28,27);
     width: 100vw;
     height: 100vh;
 }
 
+h1{
+    text-align: center;
+    
+}
+
+h3 {
+    color: rgb(250,183,0);
+}
+
+img {
+    border-radius: 4px;
+}
+
+ul {
+    list-style-type: none;
+    margin-right: 1rem;
+    margin-left: -1rem;
+}
 #main-wrapper {
     margin: 0px;
     background-color:rgb(48 54 57);;
@@ -28,9 +50,7 @@ nav {
     } 
 }
 
-h1{
-    text-align: center;
-}
+
 
 .instructions {
     grid-column: 1/4;
@@ -42,7 +62,10 @@ label.image-radio input[type="radio"]:checked + img{
     border:1px solid red;
 }
 
-#radio-button-wrapper input[type="radio"] {
+label.radio-pulls input[type="radio"]:checked + p {
+    border: 1px solid rgb(250,183,0);
+}
+.radio-wrapper input[type="radio"] {
     display: none; /* Hide the radio buttons */
   }
 
@@ -51,38 +74,63 @@ label.image-radio img {
     margin: 5px;
 }
 
-form {
-    
+#main-form {
     display:grid;
-    
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
     width: 100%;
     height: 100%;
     align-self: center;
     justify-self: center;
-    justify-items: center;
     grid-column: 1/3;
     grid-row: 2/4;
 
     & #spell-form {
+        grid-row: 2/3;
+        align-self: center;
         grid-column: 1/2;
-        grid-row: 2/3;
-        display:flex;
-        flex-direction: column;
+        justify-self: flex-start;
+
+        & .spell-input-box,
+          .suggestions-box {
+            display:flex;
+          }
+
+        & .spells {
+            position: relative;
+        }  
+        & .suggestions-box {
+            position:absolute;
+            top: 75%;
+            left: 15%;
+            width: 25%;
+            height: 25%;
+            
+            
+            & .suggestions {
+              
+                
+                max-height: 100%;
+                width: 100%;
+                overflow-x:hidden;
+                overflow-y: auto;
+               
+                & img {
+                    width: 2rem;
+                }
+                & li {
+                    background-color: rgb(38, 37, 36, .4);
+                }
+            }
+            
+        }
+            
+        
     }
-    & #timer-form {
-        grid-column: 2/3;
-        grid-row: 2/3;
-        display: flex;
-        flex-direction: column;
+    & input[type="text"] {
+        width: 50%;
     }
-    & #boss-form {
-        grid-column: 1/3;
-        margin-top: 8rem;
-    }
-    & #log-form {
-        grid-column: 1/4;
+    & button {
         grid-row: 3/4;
     }
     & fieldset {
@@ -90,7 +138,41 @@ form {
     }
 }
 
-span {
-    color: rgb(250,183,0);
+
+
+
+
+#encounter-selection {
+    grid-column: 1/4;
+    grid-row: 1/3;
 }
 
+.flex {
+    display: flex;
+    background-color: rgb(38, 37, 36, .4);
+    padding: .5rem;
+    border-radius: 5px;
+    
+}
+
+.flex-main {
+    width: 100%;
+}
+
+.pulls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    & p {
+        background-color: rgb(38, 37, 36);
+        padding: 5px;
+        margin: 2px;
+        border: solid 2px rgb(0, 0, 0, 0);
+    }
+}
+
+
+#log-form {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    margin-top: 5rem;
+}
