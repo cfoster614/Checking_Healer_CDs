@@ -1,11 +1,8 @@
 /* Can use the functions found in apiQuery */
 
-
-
 function addSpellHandler() {
     /** 
      * Create a new  text input to add another healer cd/timer. 
-     * textInputId is used to create a unique id for each input. 
      */
     $('.suggestions').empty();
 
@@ -16,17 +13,14 @@ function addSpellHandler() {
     const newTimerInput = ($('<input>', { type: 'text', class: 'timers', placeholder: '00:10' }));
 
     ulDiv.append(newUl);
-
     newDiv.append(newSpellInput, newTimerInput, ulDiv);
     newDiv.insertBefore($('.add-btn'));
-
-
 }
 
-/** Search the filteredSpells array from showSuggestions function.
- * Return true if the input val is in the array somewhere. 
- */
 function search(arr, target) {
+    /** Search the filteredSpells array from showSuggestions function.
+     * Return true if the input val is in the array somewhere. 
+     */
     const searchText = target.value;
     return arr.filter(element => element.toLowerCase().includes(searchText));
 }
@@ -72,7 +66,7 @@ function useSuggestion(e) {
     const inputElement = $(e.target).closest('.spell-input-box').find('.spells');
     inputElement.val(suggestionText);
 
-    $('#spell-suggestions').empty();
+    $('#spell-suggestions').empty(); //Clear suggestions after clicking suggesion.
 }
 
 
