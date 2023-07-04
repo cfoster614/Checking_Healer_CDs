@@ -60,4 +60,4 @@ def show_results(bossID, code):
         encounter = report_data(code, bossID)
         boss_info = Boss.query.filter_by(boss_id = bossID).first()
     
-        return render_template('results.html', ecounter = encounter, boss = boss_info)
+        return render_template('results.html', encounter = encounter, boss = boss_info)
