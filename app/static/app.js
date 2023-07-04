@@ -48,7 +48,7 @@ function showSuggestions(obj, target) {
     Object.keys(obj).forEach((key) => {
         const spell = obj[key];
         if (filteredSpells.includes(spell.name)) {
-            $('#spell-suggestions').append(`<li><img src=${spell.icon}>${spell.name}</li>`);
+            $('.suggestions').append(`<li><img src=${spell.icon}>${spell.name}</li>`);
         }
     })
 }
