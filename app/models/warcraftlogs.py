@@ -38,6 +38,12 @@ def serialized(self):
         "icon": self.icon
     }
 
+def serialized_spell(self):
+    return {
+        "spell_id": self.spell_id,
+        "name": self.name,
+        "icon": self.icon
+    }
     
 class Query:
     """For an easier time running queries to the API."""
