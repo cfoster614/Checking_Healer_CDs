@@ -1,10 +1,14 @@
 from app.models.warcraftlogs import run_query
-from app.buckets.bosses import get_boss_list
 
-def url_to_log_code(url, boss):
+
+def url_to_log_code(url):
+    """
+    Split the url the user submitted to just the code for API query.
+    Example: 
+    """
     code= url.split("/")[-1]
-    data = report_data(code, boss)
-    return data
+  
+    return code
 
 def report_data(code, boss):
     query = f'''
@@ -30,6 +34,7 @@ def report_data(code, boss):
         print(f"Error accessing response data: {e}")
     return encounters
 
+
 def serialized_encounter(self):
     return {
         "id": self.id,
@@ -38,8 +43,3 @@ def serialized_encounter(self):
         "difficulty": self.difficulty
     }
     
-def get_boss_info(id):
-    bosses = get_boss_list()
-    for boss in bosses:
-        if boss.id == id:
-            return boss
