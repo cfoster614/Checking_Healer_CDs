@@ -15,3 +15,19 @@ function filterClass(obj) {
     return obj.map(element => element.toString())
 }
 
+class Boss {
+
+    constructor(id, name, icon) {
+        this.id = id;
+        this.name = name;
+        this.icon = icon;
+    }
+
+    getName() {
+        return this.name
+    }
+    getId() {
+        return this.id
+    }
+}
+

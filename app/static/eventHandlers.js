@@ -3,7 +3,18 @@ $(document).on('keyup', 'input.spells', searchHandler) //For search box suggesti
 $(document).on('click', 'ul', useSuggestion) //Update spell input with suggestion.
 $(document).on('click', 'input.spells', newSuggestionsList) //Clear suggestions when clicking another spell input.
 
+
+
 $('input[type=radio]').on('click', function () {
     $(this).prev().attr('checked', true);
+    
 })
+
+
+$('span').on('click', function(e){
+    const id = $(this).data('id')
+    console.log(id)
+
+})
+
 

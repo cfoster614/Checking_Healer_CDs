@@ -1,8 +1,18 @@
-from app.models.warcraftlogs import Spell, Query
+from app.models.warcraftlogs import Query
+from app.models.logs_database import Spell
+from app.extensions import db
 from json import JSONDecodeError
 
+#I wrote which healer cooldowns I want to query in get_healer_cd_list.
+#Querying the API for all spells in the game takes a long time.
+#I saved the list of results and added it to the database.
+
 def get_healer_cd_list():
-    """Return a list of the names of healing cooldowns that we want to query"""
+    """
+    Return a list of the names of healing cooldowns that we want to query.
+    Used for filtering later on since API gives repeats.
+    I want all the repeats with the initial data just in case it's needed later on.
+    """
     healingCds = [
         
         # DRs
@@ -483,35 +493,20 @@ def get_spell_info():
                'name': "Invoke Yu'lon, the Jade Serpent",
                'icon': 'inv_misc_questionmark.jpg'}]
     
-    spell_list = get_names(spells)
-    
-    return spell_list
+    return spells
 
-
-def get_names(list):
-    """Helper function.
-    
-    Take the unorganized spell list and filter it so there are no repeats.
-    Turn it into organized list with Spell class.
-    
-    [<id=740, name=Tranquility, icon=spell_nature_tranquility.jpg>,
-    <id=15259, name=Darkness, icon=spell_shadow_twilight.jpg>]
-    """
-    
-    spell_list = []
+def add_to_database():
+    """Add spells to our database for easier access later."""
     url = "https://wow.zamimg.com/images/wow/icons/large/"
-    for l in list:
-        if not any(spell.name == l['name'] for spell in spell_list):
-            new_spell = Spell(
-            id = l['id'],
-            name = l['name'],
-            icon = (f"{url}{l['icon']}")
-            )
-            spell_list.append(new_spell)
-            
-        
-    return spell_list
-
+    spells_list = get_spell_info()
+    for spell in spells_list:
+        new_spell = Spell(
+            spell_id = spell['id'],
+            name = spell['name'],
+            icon = (f"{url}{spell['icon']}")
+        )
+        db.session.add(new_spell)
+    return db.session.commit()
 
 
         

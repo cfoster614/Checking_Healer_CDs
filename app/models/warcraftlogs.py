@@ -12,6 +12,10 @@ class Boss:
     def __repr__(self):
         return f"<id={self.id}, name={self.name}, icon={self.icon}>"
     
+    @property
+    def boss_id(self):
+        return self.id
+    
     
      
         
@@ -27,7 +31,7 @@ class Spell:
         return f"<id={self.id}, name={self.name}, icon={self.icon}>"
     
     
-def serialized_spell(self):
+def serialized(self):
     return {
         "id": self.id,
         "name": self.name,
@@ -48,3 +52,21 @@ class Query:
         data = response.json()
         
         return data
+
+def run_query(query):
+        data = {
+            'query' : query
+        }
+        response = requests.get(url, headers=headers, json=data)
+        data = response.json()
+        
+        return data
+    
+class Report_encounters:
+    
+    def __init__(self, id, boss_id, fight_percentage, difficulty):
+        self.id = id,
+        self.boss_id = boss_id,
+        self.fight_percentage = fight_percentage,
+        self.difficulty = difficulty
+        
