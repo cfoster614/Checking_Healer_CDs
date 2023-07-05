@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<h3>Your assignments</h3>
+
+<h3>When the spells were actually cast</h3>
 {% for spell in spell_list %}
     {% for cast in spell %}
         {{cast.name}}{{cast.time}}

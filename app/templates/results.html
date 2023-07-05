@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-
+{% block stylesheets %}
+<link rel="stylesheet" href="/static/results.css">
+{% endblock %}
 {% block content %}
 
 <form id="main-form" method="POST" >
@@ -33,14 +35,18 @@
 
     <fieldset id="spell-form">
         
-        <div class="spell-input-box"> 
-            <input type="text" class="spells" placeholder="Revival" id="spells-input-0" name="spells">
-            <input type="text" name="" class="timers" placeholder="00.10">
+        <div class="spell-input-box">
+            <div class ="input-wrapper">
+                <input type="text" class="spells" placeholder="Revival" id="spells-input-0" name="spells">
+                <input type="text" name="timers" class="timers" placeholder="00.10">
+                <button type="button" class="btn timer-btn">Add new time</button>
+            </div>
             <div class="suggestions-box" id="spell-wrapper">
                 <ul class="suggestions" id="spell-suggestions"></ul>
             </div>
+            
         </div>
-            <button class="btn add-btn" type="button">Add</button>
+            <button class="btn add-btn" type="button">Add new spell</button>
 
     </fieldset>
     <button>See result!</button>

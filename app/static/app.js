@@ -9,12 +9,29 @@ function addSpellHandler() {
     const newUl = ($('<ul>', { id: 'spell-suggestions', class: 'suggestions' }));
     const ulDiv = $($('<div>', { class: 'suggestions-box' }));
     const newDiv = ($('<div>', { class: 'spell-input-box' }));
+    const newSubDiv = ($('<div>', { class: 'input-wrapper'}));
     const newSpellInput = ($('<input>', { type: 'text', class: 'spells', name: 'spells', placeholder: 'Revival' }));
-    const newTimerInput = ($('<input>', { type: 'text', class: 'timers', placeholder: '00:10' }));
+    const newTimerInput = ($('<input>', { type: 'text', class: 'timers', name: 'timers', placeholder: '00:10' }));
+    const newTimerBtn = ($('<button>', { type: "button", class: 'btn timer-btn', text: 'Add new time'}));
 
+    newSubDiv.append(newSpellInput, newTimerInput, newTimerBtn);
     ulDiv.append(newUl);
-    newDiv.append(newSpellInput, newTimerInput, ulDiv);
+    newDiv.append(newSubDiv, ulDiv);
     newDiv.insertBefore($('.add-btn'));
+}
+
+function addTimerHandler(e) {
+    
+    const target = $(e.target).closest('.input-wrapper').find('.spells').val().toLowerCase()
+    if (!target){
+        alert('Add a spell name first.')
+    } else {
+        const newInput = $('<input>', { type: 'text', class: 'timers', name: `${target}-timers`, placeholder: '00:10'});
+        console.log(target)
+        $(target).append(newInput)
+        newInput.insertBefore('.timer-btn')
+    }
+    
 }
 
 function search(arr, target) {

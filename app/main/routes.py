@@ -66,19 +66,24 @@ def show_results(bossID, code):
     
     if request.method == 'POST':
         pullID = request.form.get('pull-list')
-        input_values = request.form.getlist('spells')
+        spells = request.form.getlist('spells')
+        timers = request.form.getlist('timers')
+        print(spells)
+        print(timers)
         
-        return redirect(url_for('main.comparison', pullID = pullID, bossID = bossID, code = code, input_values = input_values))
+        return redirect(url_for('main.comparison', pullID = pullID, bossID = bossID, code = code, spells = spells))
     
     
 @bp.route('/healers_home/report?boss=<int:bossID>&lr=<code>/comparison?encounter=<int:pullID>', methods=['POST', 'GET'])
 def comparison(pullID,  code, bossID):
-    input_values = request.args.getlist('input_values')
+    input_values = request.args.getlist('spells')
     spell_list = []
     for spell_name in input_values:
         spells  = Spell.query.filter_by(name = spell_name).all()
         spell_time = fight_data(spells, code, pullID, spell_name)
         spell_list.append(spell_time)
+
+    
     
     
    
