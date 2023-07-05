@@ -4,15 +4,15 @@ from app.main import bp
 
 from app.buckets.bosses import add_bosses_to_database
 from app.buckets.spells import add_to_database
-from app.buckets.report import url_to_log_code, report_data
-from app.models.warcraftlogs import serialized
+from app.buckets.report import url_to_log_code, report_data, fight_data
+from app.models.warcraftlogs import serialized, serialized_spell
 from app.models.logs_database import Spell, Boss, seed_database
 
 
 @bp.route('/api.healer_cds.com/spells')
 def get_api_spells():
     spells = Spell.query.all()
-    serialized_spells = [serialized(s) for s in spells]
+    serialized_spells = [serialized_spell(s) for s in spells]
     
     return jsonify(spells=serialized_spells)
 
@@ -57,7 +57,30 @@ def homepage():
 
 @bp.route('/healers_home/report?boss=<int:bossID>&lr=<code>', methods=['POST', 'GET'])
 def show_results(bossID, code):
+    
+    if request.method == 'GET':
         encounter = report_data(code, bossID)
         boss_info = Boss.query.filter_by(boss_id = bossID).first()
     
         return render_template('results.html', encounter = encounter, boss = boss_info)
+    
+    if request.method == 'POST':
+        pullID = request.form.get('pull-list')
+        input_values = request.form.getlist('spells')
+        
+        return redirect(url_for('main.comparison', pullID = pullID, bossID = bossID, code = code, input_values = input_values))
+    
+    
+@bp.route('/healers_home/report?boss=<int:bossID>&lr=<code>/comparison?encounter=<int:pullID>', methods=['POST', 'GET'])
+def comparison(pullID,  code, bossID):
+    input_values = request.args.getlist('input_values')
+    spell_list = []
+    for spell_name in input_values:
+        spells  = Spell.query.filter_by(name = spell_name).all()
+        spell_time = fight_data(spells, code, pullID, spell_name)
+        spell_list.append(spell_time)
+    
+    
+   
+        
+    return render_template('comparison.html', spell_list = spell_list)

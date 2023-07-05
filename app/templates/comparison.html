@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for spell in spell_list %}
+    {% for cast in spell %}
+        {{cast.name}}{{cast.time}}
+    {% endfor %}
+{% endfor %}
+
+
+{% endblock%}

@@ -46,7 +46,7 @@ def serialized_encounter(self):
     }
     
 
-def fight_data(spells, code, fightID):
+def fight_data(spells, code, fightID, name):
     """
     Since we can't query by spell name, and can't be exact with spell_id,
     we have to query our database for a list of spells with the name give by the form data.
@@ -91,9 +91,18 @@ def fight_data(spells, code, fightID):
         else:
             #Since cast timestamps are relative to startTimes, we need to subtract from the cast timestamp.
             #Convert like usual after the subtraction for cast times.     
-            casts = [readable_time(s['timestamp'] - start_time) for s in spell]
-                
-            return casts
+            # casts = [readable_time(s['timestamp'] - start_time) for s in spell]
+            spell_list = []
+            for s in spell:
+                time = readable_time(s['timestamp'] - start_time)
+                spell_info = {'name' : name,
+                              'time' : time}
+                spell_list.append(spell_info)
+               
+            print(spell_list)    
+            return spell_list
+           
+            
      
             
 def readable_time(time):
