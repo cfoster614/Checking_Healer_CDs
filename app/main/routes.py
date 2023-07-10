@@ -58,7 +58,7 @@ def homepage():
         return redirect(url_for('main.show_results', code = code, bossID = boss))
 
 
-@bp.route('/healers_home/report?boss=<int:bossID>&lr=<code>', methods=['POST', 'GET'])
+@bp.route('/healers_home/report<int:bossID><code>', methods=['POST', 'GET'])
 def show_results(bossID, code):
     
     if request.method == 'GET':
@@ -75,13 +75,14 @@ def show_results(bossID, code):
         return redirect(url_for('main.comparison', pullID = pullID, bossID = bossID, code = code, spells = spells))
     
     
-@bp.route('/healers_home/report?boss=<int:bossID>&lr=<code>/comparison?encounter=<int:pullID>', methods=['POST', 'GET'])
+@bp.route('/healers_home/report/<int:bossID><code>/comparison<int:pullID>', methods=['POST', 'GET'])
 def comparison(pullID,  code, bossID):
     input_values = request.args.getlist('spells')
     fight_info = fight_data(code, pullID)
     duration = fight_info['duration']
+    
     seconds = duration // 1000
-    print(duration, seconds)
+   
   
     
     spell_info = correct_spell(input_values, code, pullID, fight_info)
