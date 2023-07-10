@@ -2,59 +2,29 @@ from app.models.warcraftlogs import run_query
 from app.models.logs_database import Boss
 from app.extensions import db
 
+
+
+
+
 #Ids for the expansion and the encounter. 
 #Want to be able to reuse code for later raids and expansions if desired.
 dragonflight_id = 5
 aberrus_id = 33
 
-def get_aberrus_boss_icons():
-    """
-    Logs API doesn't have icon information for bosses. 
-    Queried API for bosses, added my own icons.
-    Use this dict for get_aberrus_boss_icons function.
-    """
-    beginning_url = "https://wow.zamimg.com/images/wow/icons/large/inv_achievement_raiddragon_"
-    boss_dict = [{
-        'name' : 'Kazzara, the Hellforged',
-        'icon' : f'{beginning_url}kazzara.jpg'
-    },
-        { 
-        'name' : 'The Amalgamation Chamber',
-        'icon' : f'{beginning_url}amalgamationchamber.jpg'
-    },
-        {
-         'name' : 'The Forgotten Experiments',
-         'icon' : f'{beginning_url}forgottenexperiments.jpg'
-    },
-        {
-         'name' : 'Assault of the Zaqali',
-         'icon' : f'{beginning_url}zaqaliassault.jpg'
-    },
-        {
-         'name' : 'Rashok, the Elder',
-         'icon' : f'{beginning_url}rashok.jpg'
-    },
-        {
-         'name' : 'The Vigilant Steward, Zskarn',
-         'icon' : f'{beginning_url}zskarn.jpg'
-    },
-        {
-         'name' : 'Magmorax',
-         'icon' : f'{beginning_url}magmorax.jpg'
-    },
-        {
-         'name' : 'Echo of Neltharion',
-         'icon' : f'{beginning_url}neltharion.jpg'
-    },
-        {
-         'name' : 'Scalecommander Sarkareth',
-         'icon' : f'{beginning_url}sarkareth.jpg'
-    }]
+def populate_bosses():
     
-    return boss_dict
-
-
-
+    URL = "https://wow.zamimg.com/images/wow/icons/large/inv_achievement_raiddragon_"
+    ABERRUS_BOSSES = [
+        Boss.add_boss(boss_id=2688, name="Kazzara, the Hellforged", icon=f"{URL}kazzara.jpg", nickname="Kazzara"),
+        Boss.add_boss(boss_id=2687, name="The Amalgamation Chamber", icon=f"{URL}amalgamationchamber.jpg"),
+        Boss.add_boss(boss_id=2682, name="Assault of the Zaqali", icon=f"{URL}zaqaliassault.jpg", nickname="Assault"),
+        Boss.add_boss(boss_id=2693, name="The Forgotten Experiments", icon=f"{URL}forgottenexperiments.jpg"),
+        Boss.add_boss(boss_id=2680, name="Rashok, the Elder", icon=f"{URL}rashok.jpg", nickname="Rashok"),
+        Boss.add_boss(boss_id=2689, name="The Vigilant Steward, Zskarn", icon=f"{URL}zskarn.jpg", nickname="Zskarn"),
+        Boss.add_boss(boss_id=2683, name="'Magmorax", icon=f"{URL}magmorax.jpg"),
+        Boss.add_boss(boss_id=2684, name="Echo of Neltharion", icon=f"{URL}neltharion.jpg", nickname="Neltharion"),
+        Boss.add_boss(boss_id=2685, name="Scalecommander Sarkareth", icon=f"{URL}sarkareth.jpg", nickname="Sarkareth")
+    ]
 
 
 def query_encounters(expansion_id, zone_id):
@@ -89,18 +59,3 @@ def query_encounters(expansion_id, zone_id):
     return encounters
 
 
-def add_bosses_to_database():
-    """Add bosses to our database."""
-    icons = get_aberrus_boss_icons()
-    bosses = query_encounters(dragonflight_id, aberrus_id)
-    for boss in bosses:
-        for icon in icons:
-            if icon['name'] == boss['name']:
-                new_boss = Boss(
-                    boss_id = boss['id'],
-                    name = boss['name'],
-                    icon = icon['icon']
-                )
-                db.session.add(new_boss)
-    return db.session.commit()
-    
