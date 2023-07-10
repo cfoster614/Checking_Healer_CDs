@@ -1,4 +1,6 @@
-from app.models.warcraftlogs import run_query
+from app.models.warcraftlogs import run_query, Player_Event, readable_time
+from app.models.logs_database import Spell
+
 
 def url_to_log_code(url):
     """
@@ -19,7 +21,8 @@ def report_data(code, boss):
                     fightPercentage, 
                     id,
                     endTime,
-                    startTime
+                    startTime,
+                    kill
                 }}
             }}
         }}
@@ -29,6 +32,7 @@ def report_data(code, boss):
     
     try:
         encounters= results['data']['reportData']['report']['fights']
+        
         print(encounters)
         
         
@@ -46,7 +50,7 @@ def serialized_encounter(self):
     }
     
 
-def fight_data(spells, code, fightID, name):
+def fight_data(code, fightID):
     """
     Since we can't query by spell name, and can't be exact with spell_id,
     we have to query our database for a list of spells with the name give by the form data.
@@ -67,57 +71,101 @@ def fight_data(spells, code, fightID, name):
     timers = results['data']['reportData']['report']['fights']
     
     for time in timers:
-        start_time = time['startTime']
+       
+        start_time = (time['startTime'])
+        s_time = readable_time(start_time)
+      
         duration = time['endTime'] - time['startTime']
+        d_time = readable_time(duration)
         
-    fight_length = readable_time(duration) #For later if I want to include the fight duration.
-           
-    for spell in spells: #Run a query for every spell with the correct name.
-        query = f'''
-            query reportData {{ 
-                reportData {{report(code: "{code}") {{
-                    events(dataType: Casts, fightIDs: {fightID}, abilityID: {spell.spell_id}) {{
-                        data
+        
+        time_dict = {'start' : start_time,
+                     'duration' : duration,
+                     'd_time' : d_time}
+       
+        return time_dict
+        
+       
+# def correct_spell(spell_list, code, fightID, fight_info):
+   
+#     spells_list = [Spell.query.filter_by(spell_id = spell_id).all() for spell_id in spell_list]
+    
+        
+#     spell_data = []
+#     for spell in spells_list: #Run a query for every spell with the correct name. 
+#         for s in spell:
+#             print(spell)
+#             query = f'''
+#                 query reportData {{ 
+#                     reportData {{report(code: "{code}") {{
+#                         graph(dataType: Casts, fightIDs: {fightID}, abilityID: {s.spell_id})
+#                     }}
+#                 }}
+#             }}
+#             '''
+#             results = run_query(query)  
+#             spell_info = results['data']['reportData']['report']['graph']['data']['series']
+
+
+
+#                 #Since cast timestamps are relative to startTimes, we need to subtract from the cast timestamp.
+#                 #Convert like usual after the subtraction for cast times.     
+#                 # casts = [readable_time(s['timestamp'] - start_time) for s in spell]
+#             spell_class= Player_Event(spell_info, fight_info)
+#             spell_data.append(spell_class)
+        
+    
+#     return spell_data
+            
+            
+def correct_spell(spell_list, code, fightID, fight_info):
+    print(fight_info)
+   
+    spells_list = [Spell.query.filter_by(spell_id = spell_id).all() for spell_id in spell_list]
+    
+        
+    spell_data = []
+    for spell in spells_list: #Run a query for every spell with the correct name. 
+        for s in spell:
+          
+            query = f'''
+                query reportData {{ 
+                    reportData {{report(code: "{code}") {{
+                        graph(dataType: Casts, fightIDs: {fightID}, abilityID: {s.spell_id})
                     }}
                 }}
             }}
-        }}
-        '''
-        results = run_query(query)
-        spell = results['data']['reportData']['report']['events']['data']
+            '''
+            results = run_query(query)  
+            spell_info = results['data']['reportData']['report']['graph']['data']['series']
 
-        if len(spell) == 0: #If spell results return empty, query again.
-            run_query(query)
-        else:
-            #Since cast timestamps are relative to startTimes, we need to subtract from the cast timestamp.
-            #Convert like usual after the subtraction for cast times.     
-            # casts = [readable_time(s['timestamp'] - start_time) for s in spell]
-            spell_list = []
-            for s in spell:
-                time = readable_time(s['timestamp'] - start_time)
-                spell_info = {'name' : name,
-                              'time' : time}
-                spell_list.append(spell_info)
+
+
+                #Since cast timestamps are relative to startTimes, we need to subtract from the cast timestamp.
+                #Convert like usual after the subtraction for cast times.     
+                # casts = [readable_time(s['timestamp'] - start_time) for s in spell]
+            simplified_data = []
+
+            for player_data in spell_info:
+                
                
-            print(spell_list)    
-            return spell_list
-           
+                name = player_data['name']
+                timestamps = []
+                abilities = []
+
+                for event in player_data['events']:
+                    for e in event:
+                        if 'timestamp' in e and 'ability' in e and 'name' in e['ability'] and 'abilityIcon' in e['ability']:
+                            ability_data = [e['ability']['name'], e['timestamp'] - fight_info['start'], e['ability']['abilityIcon'], e['type']]
+                            abilities.append(ability_data)
+
+                simplified_data.append({'name': name, 'abilities': abilities})
+
+            spell_data.append(simplified_data)
+
+
+    return spell_data
             
-     
-            
-def readable_time(time):
-    """
-    Timestamps are in milliseconds.
-    Need to convert properly to minutes/seconds.
-    """
-    m_sec = time
-    seconds = m_sec // 1000
-    minutes = seconds // 60
-    rem_sec = seconds % 60
-    formatted_time = f"{minutes:02d}:{rem_sec:02d}"
-    
-    return formatted_time
-    
-      
-            
-            
+
+
+                
