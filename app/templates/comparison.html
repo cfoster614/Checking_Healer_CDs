@@ -1,14 +1,52 @@
 {% extends 'base.html' %}
-
+{% block stylesheets %}
+<link rel="stylesheet" href="/static/comparison.css">
+{% endblock %}
 {% block content %}
-<h3>Your assignments</h3>
+<div ><img src="/static/Ysera.jpg" class="picture-wrapper"></div>
+<div class="assignment-container"></div>
 
-<h3>When the spells were actually cast</h3>
-{% for spell in spell_list %}
-    {% for cast in spell %}
-        {{cast.name}}{{cast.time}}
-    {% endfor %}
-{% endfor %}
+<div class="spell-timeline-container">
+    <div class="container">
+        <div class="players ">
+            {% for event in events %}
+            {% for player in event %}
+            <div class="player">
+                {{player.name}}
+            </div>
+            {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="spell-timeline border">
+            <div class="timeline-container">
+            <div class="timeline">
+                {% for second in range(0, seconds, 2) %}
+                <div class="time {% if second % 30 == 0 %}show-text{% elif second % 10 == 0 %}show-line{% endif %}"
+                    data-duration="{{ '%02d:%02d' | format(second // 60, second % 60) }}"></div>
+                {% endfor %}
+            </div>
+            </div>
+            {% for event in events %}
+            {% for player in event %}
+            <div class="lane">
+                {% for ability in player.abilities %}
+                {% if ability[3] != 'begincast' %}
+                <div class="spell" style="left: calc({{ (ability[1] / duration) * 100}}%);">
+                    <img src="https://wow.zamimg.com/images/wow/icons/medium/{{ ability[2] }}"
+                        style="left: calc({{ (ability[1] / duration) * 100}}%);">
+                    {{readable_time(ability[1])}}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+
 
 
 {% endblock%}
