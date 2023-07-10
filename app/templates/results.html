@@ -21,7 +21,26 @@
                             <label class="radio-pulls">
                                 {% set wipe_count.value = wipe_count.value + 1 %}
                             <input type="radio" name="pull-list" value="{{e.id}}" checked>
-                                <p>Wipe {{wipe_count.value}} {{e.fightPercentage}}</p>
+                                <div class="flex">
+                                {% if e.kill %}
+                                    <div class="flex-main">
+                                        Kill
+                                    </div>
+                                    <div class="flex-sub">
+                                        {{readable_time(e.endTime - e.startTime)}}
+                                    </div>
+                                {% else %}
+                                    <div class="flex-main wipe">
+                                        Wipe {{wipe_count.value}}
+                                        {{e.fightPercentage}}% 
+                                    </div>
+                                    <div class="flex-sub wipe">
+                                        {{readable_time(e.endTime - e.startTime)}}
+                                    </div>
+                                {% endif %}
+                                </div>
+                         
+                                
                                 </label>
                                 {% endfor %}
                     
@@ -36,19 +55,23 @@
     <fieldset id="spell-form">
         
         <div class="spell-input-box">
-            <div class ="input-wrapper">
+            <div class="form-header flex"></div>
+            <div class="spell-wrapper flex">
                 <input type="text" class="spells" placeholder="Revival" id="spells-input-0" name="spells">
-                <input type="text" name="timers" class="timers" placeholder="00.10">
+                <input type="hidden" class="hidden-ids" name="hidden-ids">
                 <button type="button" class="btn timer-btn">Add new time</button>
+            </div>
+            <div class ="timers-wrapper">
+                <input type="text" name="timers" class="timers" placeholder="00.10">
             </div>
             <div class="suggestions-box" id="spell-wrapper">
                 <ul class="suggestions" id="spell-suggestions"></ul>
             </div>
             
         </div>
-            <button class="btn add-btn" type="button">Add new spell</button>
 
     </fieldset>
+    <button class="btn add-btn" type="button">Add new spell</button>
     <button>See result!</button>
 </form>
 
