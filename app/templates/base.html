@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/app.css">
+    <link rel="stylesheet" href="/static/css/app.css">
     {% block stylesheets %}
     {% endblock %}
     <script>const whTooltips = { colorLinks: true, iconizeLinks: true, renameLinks: true };</script>
@@ -16,19 +16,31 @@
 </head>
 
 <body>
-    <div id="main-wrapper">
+    <div id="main-wrapper" class="main-container">
     <nav>
-        <h1><a href = "/healers_home">Healer Assignment Checker</a></h1>
+        {% if path == "/healers_home" %}
+        <h1>Healer Assignment Checker</h1>
+        {% elif "/comparison" in path %}
+        <div class="main-flex">
+            <p class="home"><a href = "/healers_home">Home</a></p>
+            <p><a href="/healers_home/report{{boss}}{{code}}">Pulls</a></p>
+                {{boss.id}}
+        </div>
+        {% else %}
+        <div class="main-flex">
+        <p class="home"><a href = "/healers_home">Home</a></p>
+        </div>
+        {% endif %}
     </nav>
     {% block content %}
     {% endblock %}
     </div>
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="/static/apiQuerying.js"></script>
-    <script src="/static/models.js"></script>
-    <script src="/static/app.js"></script>
-    <script src="/static/eventHandlers.js"></script>
+    <script src="/static/js/apiQuerying.js"></script>
+    <script src="/static/js/models.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/eventHandlers.js"></script>
 </body>
 
 </html>

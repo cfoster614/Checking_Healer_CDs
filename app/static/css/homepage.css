@@ -1,0 +1,50 @@
+
+label.image-radio input[type="radio"]:checked + img{
+    border:2px solid var(--light-purple);
+    box-shadow: 1px 1px 8px 2px var(--light-purple);
+}
+
+label.image-radio img {
+    width: 50px;
+    margin: 5px;
+    transition: all .2s ease-in-out;
+  }
+
+  label.image-radio img:hover {
+    border: 2px solid var(--light-purple);
+    transform: scale(1.1);
+  }
+  
+.main-static-container.box.intro {
+    margin-bottom: 1rem;
+    padding: 0px 1rem;
+    border: solid 2px var(--light-green);
+}
+
+input[type="text"]:focus {
+    border: solid 2px var(--light-green);
+}
+
+button {
+    padding: 5px;
+    background-color: var(--light-purple);
+    color: white;
+    font-size: 20px;
+    align-self: center;
+}
+
+button:hover {
+    background-color: var(--dark-purple);
+    transition-duration: 500ms;
+}
+
+.main-flex-col,
+.main-flex {
+    padding-bottom: 1rem;
+    align-items: stretch;
+}
+
+.sub-static-container {
+    padding: 0rem 2rem 1rem;
+}
+

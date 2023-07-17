@@ -1,0 +1,40 @@
+label.radio-pulls input[type="radio"]:checked + div {
+    border: 1px solid #c8d6bd;
+  }
+
+#encounter-selection {
+    height: 20rem;
+    & .boss {
+      width: 50px;
+      height: 45px;
+      position: relative;
+      border: none;
+    }
+    & .main-flex {
+      flex-wrap: nowrap;
+    }
+    & ul {
+      list-style-type: none;
+      overflow: auto;
+      height: 65%;
+      position: relative;
+      bottom: 2rem;
+      padding: 1rem;
+      border-bottom: none;
+      box-sizing: content-box;
+      & .pulls {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        & .sub-flex {
+          justify-content: space-between;
+          background-color: var(--dark-blue);
+          padding: 7px;
+          margin: 4px;
+        }
+        & .sub-flex.box:hover {
+          background-color: var(--light-green);
+          transition-duration: 500ms;
+        }
+      }
+    }
+  }

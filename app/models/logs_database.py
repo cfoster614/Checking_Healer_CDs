@@ -1,5 +1,6 @@
 from app.extensions import db
 
+
 class Spell(db.Model):
     
     __tablename__ = 'spells'
@@ -11,6 +12,13 @@ class Spell(db.Model):
     def __repr__(self):
         return f'<Spell  "{self.name}">'
     
+    @classmethod
+    def add_spell(cls, **kw):
+            obj = cls(**kw)
+            db.session.add(obj)
+            db.session.commit()
+
+    
 class Boss(db.Model):
     
     __tablename__ = 'bosses'
@@ -18,8 +26,13 @@ class Boss(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     boss_id = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(50), nullable=False)
+    nickname = db.Column(db.String(15))
     icon = db.Column(db.Text, nullable=False)
     
-def seed_database():
-    db.drop_all()
-    db.create_all()
+    @classmethod
+    def add_boss(cls, **kw):
+            obj = cls(**kw)
+            db.session.add(obj)
+            db.session.commit()
+    
+    

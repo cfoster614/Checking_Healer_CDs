@@ -1,0 +1,110 @@
+.sub-static-container.spell-input-box {
+  height: fit-content;
+  padding: 10px;
+  background-color: var(--light-green);
+  & .spell-wrapper {
+    border-radius: 5px;
+  }
+}
+
+.main-static-container.spells {
+  position:relative;
+  height: 20rem;
+  & .main-grid {
+    height: 15rem;
+    overflow: auto;
+    border: none;
+    box-shadow: none;
+    & .timers-wrapper {
+      width: -webkit-fill-available;
+      padding-top:5px;
+      grid-gap: 2px;
+      justify-items: center;
+      & .timers {
+        height:fit-content;
+        border-radius: 2px;
+        border: solid 2px transparent;
+      }
+    }
+    & .spells {
+      width: 100%;
+    }
+    & button {
+      width: 100%;
+    }
+    & .suggestions {
+      position: absolute;
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 90%;
+      top: 5.8rem;
+      width: 9rem;
+      margin: auto;
+      padding: 0px;
+      & img {
+        width: 2rem;
+        margin-right: 5px;
+      }
+      & .sub-flex.box {
+        font-size: 13px;
+        border-radius: 2px;
+        background-color: var(--dark-blue);
+        flex-wrap:nowrap;
+        align-items: center;
+        border-bottom: none;
+      }
+      & .sub-flex.box:hover {
+        background-color: var(--light-green);
+        transition-duration: 500ms;
+      }
+    }
+  }
+}
+
+#spell-suggestions.max-height {
+  top: 10rem;
+}
+
+.flex-img {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  height:auto;
+  width: auto;
+  padding-bottom: 5px;
+  box-shadow: none;
+  & > img {
+    width:auto;
+  }
+}
+
+::-webkit-scrollbar {
+  height: 12px;
+  width: 10px;
+}
+
+button:hover {
+  background-color: var(--dark-purple);
+  transition-duration: 500ms;
+}
+
+.timer-btn {
+  margin-top: 5px;
+  background-color: var(--dark-blue);
+}
+
+
+input[type="text"]:focus {
+  border: solid 2px var(--light-purple);
+  width: 200px;
+}
+
+input[type="text"] {
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  transition: all .5s ease; 
+  box-shadow: 2px 2px 5px 1px #0000008a;
+}
+
+.final-btn:hover {
+  transform: scale(1.1);
+}

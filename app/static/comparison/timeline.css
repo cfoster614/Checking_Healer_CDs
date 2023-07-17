@@ -1,82 +1,38 @@
-#main-wrapper {
-  width: 100vw;
-  margin-left: auto;
-}
-
-.img-container {
-  height: 100vh;
-  overflow: hidden;
-  & img {
-    -webkit-filter: blur(1px);
-    scale: 1.3;
-    position: relative;
-    top: 10%;
-  }
-}
-
 .spell-timeline-container {
-  position: absolute;
-  width: 100%;
   overflow: auto;
-  display: flex;
-  justify-content: center;
-  top: 45%;
-
-  &::-webkit-scrollbar {
-    height: 12px;
-    cursor: default !important;
-  }
-  &::-webkit-scrollbar-track {
-    background: rgba(104, 103, 100, 0.15);
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: #9368a6;
-  }
-}
-
-.container {
-  display: flex;
-  margin-top: 100px;
-  color: white;
-}
-
-.players {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #0f2426;
-  & .player {
-    position:relative;
-    top: 20px;
-    z-index: 3;   
+  & .flex {
+    margin-left: -5px;
   }
 }
 
 .spell-timeline {
-  background-color: #0f242699;
-  display: inline-block;
+  background-color: var(--faded-green);
   font-size: 14px;
   position: relative;
   white-space: nowrap;
   & .lane {
-    height: 50px;
-    margin-bottom: 2px;
-    z-index: 3;
+    height: 3rem;
     display: flex;
     align-items: center;
-    border-bottom: solid #374065 2px;
+    border-bottom: solid var(--dark-green);
     & .spell {
       position: absolute;
     }
+    & .spell:before {
+    content: "";
+    width: 2px;
+    background: rgb(236, 8, 8);
+    position: absolute;
+    bottom: 5px;
+    height: 50px;
+    z-index: 4;
+    }
   }
   & .lane:nth-of-type(even) {
-    background: linear-gradient(45deg, #0f2426, transparent);
+    background: var(--faded-green);
   }
   & .lane:nth-of-type(odd) {
-    background: linear-gradient(45deg, #9368a6, transparent);
+    background: #548c68a6;
   }
   & .timeline-container {
     display: flex;
@@ -84,8 +40,11 @@
     height: 3rem;
     justify-content: center;
     padding-top: 1rem;
-    border-bottom: solid #9368a6;
-    background-color: #0f2426;
+    border-bottom: solid 1px;
+    background-color: var(--dark-green);
+    position:relative;
+    z-index: 2;
+    box-shadow: 3px 3px 2px 0px #0000008a;
     & .time {
       display: inline-block;
       border-left: 1px solid rgba(255, 255, 255, 0.3);
@@ -93,11 +52,15 @@
       font-size: 14px;
       position: relative;
     }
+    & .show-line:before,
+      .show-text:before,
+      .show-text:after {
+        position:absolute;
+      }
     & .show-line:before {
       content: "";
       width: 1px;
       background: rgb(247, 245, 245);
-      position: absolute;
       top: 5px;
       height: 5px;
     }
@@ -105,17 +68,13 @@
       content: attr(data-duration);
       left: -16px;
       bottom: 1px;
-      position: absolute;
     }
     & .show-text:after {
       content: "";
       width: 1px;
       background: rgb(255, 255, 255);
-      position: absolute;
       height: 10px;
     }
   }
 }
-
-
 

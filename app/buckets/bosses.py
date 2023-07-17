@@ -2,10 +2,6 @@ from app.models.warcraftlogs import run_query
 from app.models.logs_database import Boss
 from app.extensions import db
 
-
-
-
-
 #Ids for the expansion and the encounter. 
 #Want to be able to reuse code for later raids and expansions if desired.
 dragonflight_id = 5

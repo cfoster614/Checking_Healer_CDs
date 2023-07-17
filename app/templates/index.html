@@ -1,37 +1,56 @@
-{% extends 'base.html' %}
-{% block stylesheets %}
-<link rel="stylesheet" href="/static/homepage.css">
-{% endblock %}
-{% block content %}
+{% extends 'base.html' %} {% block stylesheets %}
+<link rel="stylesheet" href="/static/css/homepage.css" />
+{% endblock %} {% block content %}
 
-<div class="instructions">
-    <h2>Check if your healers are using their cooldowns at the correct time!</h2>
-    <p>Are your healers using their cds correctly? Want to check quickly? Look no further!</p>
+<div class="main-static-container box intro" style="text-align: center">
+  <h3>Check if your healers are using their cooldowns at the correct time!</h3>
+  <p>
+    Are your healers using their cds correctly? Want to check quickly? Look no
+    further!
+  </p>
 </div>
-    <form id="log-form"  method="POST">
-        <fieldset id="boss-form">
-            <span>
-                <h3>Choose a boss</h3>
-            </span>
-            <div id="radio-button-wrapper"class="radio-wrapper">
-                {% for boss in bosses %}
-                
-                <label class="image-radio">
-                    <input type="radio" name="boss-list" value="{{boss.boss_id}}" checked>
-                    <img src="{{boss.icon}}" alt="Option 1">
-                </label>
-    
-                {% endfor %}
-            </div>
-        </fieldset>
+<form id="log-form" class="" method="POST">
+  <fieldset class="main-static-container box">
+    <h3 class="title-box">Choose a boss</h3>
 
-        <fieldset>
-        <span>
-            <h3>Url of log you want to check</h3>
-        </span>
-            <input type="text" id="log-input"
-                placeholder="https://www.warcraftlogs.com/reports/mCnZyt9qkzMPraNF#fight=last" name="log-input">
-        </fieldset>
-            <button>Analyze</button>
-    </form>
+    
+      <div id="radio-button-wrapper" class="radio-wrapper main-flex">
+        {% for boss in bosses %}
+
+        <label class="image-radio">
+          <input
+            type="radio"
+            name="boss-list"
+            value="{{boss.boss_id}}"
+            checked
+          />
+          <img src="{{boss.icon}}" alt="Option 1" />
+        </label>
+
+        {% endfor %}
+      </div>
+   
+  </fieldset>
+
+  <fieldset class="main-flex-col box">
+    <h3 class="title-box">Url of log you want to check</h3>
+
+    <div class="sub-static-container">
+      <input
+        type="text"
+        id="log-input"
+        placeholder="https://www.warcraftlogs.com/reports/mCnZyt9qkzMPraNF#fight=last"
+        name="log-input"
+        {% if error %}
+        class="invalid"
+        {% endif %}
+      />
+    </div>
+    <button>Analyze</button>
+  </fieldset>
+</form>
+{% if error %}
+    <p class="danger"><strong>{{ error }}</strong></p>
+{% endif %}
+
 {% endblock %}

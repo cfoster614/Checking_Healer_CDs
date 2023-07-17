@@ -1,0 +1,34 @@
+.main-flex-col {
+    justify-content: space-around;
+    padding-bottom: 1rem;
+  }
+  
+  .flex-img {
+    justify-content: flex-start;
+    & .flex {
+      align-items: center;
+      justify-content: center;
+      width: -webkit-fill-available;
+      & > img {
+        border: none;
+      }
+    }
+  }
+
+  .players.main-flex-col { 
+    padding: 0.5rem;
+    justify-content: space-evenly;
+    box-shadow: 2px 1px 5px 1px #0000008a;
+       position: relative;
+       z-index: 2;
+       background-color: var(--dark-green);
+       left: 2.5px;
+       max-width: fit-content;
+       border-radius: 0px;
+     & > div {
+       position:relative;
+       top: 20px;
+     }
+   }
+   
+  

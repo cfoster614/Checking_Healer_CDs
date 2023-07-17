@@ -1,6 +1,3 @@
-/* For radio inputs since I have taken away the actual radio button itself
-and am just using pictures of the bosses */
-
 let cachedSpells = [];
 
 async function getSpellInfo() {
@@ -28,11 +25,14 @@ async function getSpellInfo() {
                 const newSpell = new Spell((arr[i]['spell_id']), name, (arr[i]['icon']) );
                 cachedSpells.push(newSpell);
                 filteredSpells.push(name);
-
             }
         }
         return cachedSpells
     }
 
+function getSpellNames() {
+    const spellNames = cachedSpells.map(spell => spell.name)
+    return spellNames;
+}
 
-    getSpellInfo()
+getSpellInfo()

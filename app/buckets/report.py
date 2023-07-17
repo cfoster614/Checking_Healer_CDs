@@ -1,9 +1,15 @@
 from app.models.warcraftlogs import run_query, readable_time
 from app.models.logs_database import Spell
+import re
 
 def url_to_log_code(url):
     """Split the url the user submitted to just the code for API query."""
-    code= url.split("/")[-1]
+    pattern = r"(?<=/reports/)([^/#]+)"
+    match = re.search(pattern, url)
+    if match:
+        code = match.group(1)
+    else:
+        code = None
   
     return code
 

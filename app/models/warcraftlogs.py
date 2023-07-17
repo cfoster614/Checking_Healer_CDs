@@ -1,35 +1,6 @@
 from app.API_queries import url, headers
 import requests
 
-
-class Boss:
-    """Bosses for Aberrus."""
-    
-    def __init__(self, id, name, icon):
-        self.id = id
-        self.name = name
-        self.icon = icon
-    def __repr__(self):
-        return f"<id={self.id}, name={self.name}, icon={self.icon}>"
-    
-    @property
-    def boss_id(self):
-        return self.id
-    
-    
-     
-        
-class Spell:
-    """Major healing cooldown spells."""
-    
-    def __init__(self, id, name, icon):
-        self.id = id
-        self.name = name
-        self.icon = icon
-        
-    def __repr__(self):
-        return f"<id={self.id}, name={self.name}, icon={self.icon}>"
-    
     
 def serialized(self):
     return {
@@ -67,12 +38,16 @@ def run_query(query):
         data = response.json()
         
         return data
+                 
+def readable_time(time):
+    """
+    Timestamps are in milliseconds.
+    Need to convert properly to minutes/seconds.
+    """
+    m_sec = time
+    seconds = m_sec // 1000
+    minutes = seconds // 60
+    rem_sec = seconds % 60
+    formatted_time = f"{minutes:02d}:{rem_sec:02d}"
     
-class Report_encounters:
-    
-    def __init__(self, id, boss_id, fight_percentage, difficulty):
-        self.id = id,
-        self.boss_id = boss_id,
-        self.fight_percentage = fight_percentage,
-        self.difficulty = difficulty
-        
+    return formatted_time
