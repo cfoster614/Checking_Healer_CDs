@@ -112,9 +112,13 @@ def correct_spell(spell_list, code, fightID, fight_info):
             '''
             results = run_query(query)  
             spell_info = results['data']['reportData']['report']['graph']['data']['series']
-
+            
             simplified_data = [] #Data comes out with more than we need. Makes it difficult to sort through.
-
+            if not spell_info:
+                ability = "Not used"
+               
+                simplified_data.append({'spell' : s.name, 'ability' : ability})
+                
             for player_data in spell_info:
                 
                 name = player_data['name']
@@ -125,8 +129,11 @@ def correct_spell(spell_list, code, fightID, fight_info):
                         if 'timestamp' in e and 'ability' in e and 'name' in e['ability'] and 'abilityIcon' in e['ability']:
                             ability_data = [e['ability']['name'], e['timestamp'] - fight_info['start'], e['ability']['abilityIcon'], e['type']]
                             abilities.append(ability_data)
-
-                simplified_data.append({'name': name, 'abilities': abilities})
+                   
+                       
+                    simplified_data.append({'name': name, 'abilities': abilities})
+                
+                    
 
             spell_data.append(simplified_data)
 

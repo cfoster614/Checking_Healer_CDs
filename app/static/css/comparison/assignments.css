@@ -12,6 +12,17 @@
       & > img {
         border: none;
       }
+      & > h3 {
+        position: absolute;
+        z-index: 2;
+        top: 7rem;
+        padding: 5px;
+        width: 7rem;
+        background-color: #a11010;
+        border-radius: 5px;
+        border: solid 1px;
+        box-shadow: 2px 2px 5px 1px #0000008a;
+      }
     }
   }
 

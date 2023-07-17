@@ -1,7 +1,7 @@
 .spell-timeline-container {
   overflow: auto;
   & .flex {
-    margin-left: -5px;
+    background-color: var(--dark-green);
   }
 }
 
