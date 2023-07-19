@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/css/app.css">
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz">
     {% block stylesheets %}
     {% endblock %}
     <script>const whTooltips = { colorLinks: true, iconizeLinks: true, renameLinks: true };</script>
@@ -23,7 +25,7 @@
         {% elif "/comparison" in path %}
         <div class="main-flex">
             <p class="home"><a href = "/healers_home">Home</a></p>
-            <p><a href="/healers_home/report{{boss}}{{code}}">Pulls</a></p>
+            <p class=""><a href="/healers_home/report{{boss}}{{code}}">Pulls</a></p>
                 {{boss.id}}
         </div>
         {% else %}
