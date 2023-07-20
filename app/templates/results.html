@@ -22,7 +22,7 @@
                     <label class="radio-pulls">
                         {% set wipe_count.value = wipe_count.value + 1 %}
                     <input type="radio" name="pull-list" value="{{e.id}}" checked>
-                    <div class="sub-flex box">
+                    <div class="sub-flex box options">
                     {% if e.kill %}
                         <div>
                             Kill
@@ -64,7 +64,7 @@
     <button class="btn add-btn" type="button">Add new spell</button>
     <button class="final-btn">See result!</button>
     {% if error %}
-        <p class="danger"><strong>{{error}}</strong></p>
+        <p class="danger">{{error}}</p>
     {% endif %}
 </form>
 

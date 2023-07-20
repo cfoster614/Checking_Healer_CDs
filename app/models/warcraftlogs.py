@@ -1,13 +1,13 @@
 from app.API_queries import url, headers
 import requests
 
-    
 def serialized(self):
     return {
         "id": self.id,
         "name": self.name,
         "icon": self.icon
     }
+    
 
 def serialized_spell(self):
     return {
@@ -16,33 +16,24 @@ def serialized_spell(self):
         "icon": self.icon
     }
     
-class Query:
-    """For an easier time running queries to the API."""
-    def __init__(self, query):
-        self.query = query
-        
-    def run_query(self):
-        data = {
-            'query' : self.query
-        }
-        response = requests.get(url, headers=headers, json=data)
-        data = response.json()
-        
-        return data
 
 def run_query(query):
-        data = {
-            'query' : query
-        }
-        response = requests.get(url, headers=headers, json=data)
-        data = response.json()
-        
-        return data
+    """Helper function for queries."""
+    data = {
+        'query' : query
+    }
+    response = requests.get(url, headers=headers, json=data)
+    data = response.json()
+    
+    return data
+           
                  
 def readable_time(time):
-    """
-    Timestamps are in milliseconds.
-    Need to convert properly to minutes/seconds.
+    """ Timestamps are in milliseconds.
+        Need to convert properly to minutes/seconds.
+        
+        >>> readable_time(35822)
+        '00:35'
     """
     m_sec = time
     seconds = m_sec // 1000
