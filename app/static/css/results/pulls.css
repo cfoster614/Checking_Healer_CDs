@@ -1,9 +1,16 @@
 label.radio-pulls input[type="radio"]:checked + div {
-    border: 1px solid #c8d6bd;
+    border: 2px solid var(--light-purple);
+    & .first {
+      border-right: 2px solid var(--light-purple);
+    }
   }
 
+form {
+  height: 100%;
+}
+
 #encounter-selection {
-    height: 20rem;
+    height: 25%;
     & .boss {
       width: 50px;
       height: 45px;
@@ -16,9 +23,9 @@ label.radio-pulls input[type="radio"]:checked + div {
     & ul {
       list-style-type: none;
       overflow: auto;
-      height: 65%;
+      height: 60%;
       position: relative;
-      bottom: 2rem;
+      bottom: 3rem;
       padding: 1rem;
       border-bottom: none;
       box-sizing: content-box;
@@ -31,10 +38,23 @@ label.radio-pulls input[type="radio"]:checked + div {
           padding: 7px;
           margin: 4px;
         }
-        & .sub-flex.box:hover {
-          background-color: var(--light-green);
+        & .sub-flex.box {
           transition-duration: 500ms;
+          & .first {
+            transition-duration: 500ms;
+          }
+        }
+        & .sub-flex.box:hover {
+          background-color: var(--light-purple);
+          transition-duration: 500ms;
+          border-bottom: solid 2px var(--dark-purple);
+          & .first {
+            border-right: solid 2px var(--dark-purple);
+            transition-duration: 500ms;
+          }
         }
       }
     }
   }
+
+  

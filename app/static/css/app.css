@@ -13,7 +13,8 @@
   body {
     background-image: url(background-media/Ysera.jpg);
   }
-  #main-wrapper {
+  #main-wrapper,
+  nav {
     width: 65vw;
   }
 }
@@ -22,8 +23,9 @@
   body {
     background-image: url(background-media/Ysera2.jpg);
   }
-  #main-wrapper {
-    width: 50vw;
+  #main-wrapper,
+  nav {
+    width: 65vw;
   }
 }
 
@@ -38,7 +40,8 @@
     background-position-x: 80%;
     background-position-y: 5%;
   }
-  #main-wrapper {
+  #main-wrapper,
+  nav {
     width: 100vw;
   }
 }
@@ -61,6 +64,7 @@
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: var(--light-green);
+  border: 1px solid var(--dark-blue);
 }
 
 label.image-radio input[type="radio"]:checked + img {
@@ -98,7 +102,7 @@ h2 {
   font-size: x-large;
 }
 
-.danger {
+.alert {
   background-color: rgba(144, 30, 30, 0.661);
   padding: 1rem;
   text-align: center;
@@ -125,7 +129,7 @@ img,
 .main-flex-col,
 .main-grid,
 .box {
-  border: solid #2a29299e 2px;
+  border: solid var(--dark-green) 2px;
 }
 
 .sub-flex,
@@ -219,9 +223,9 @@ nav {
   font-family: "Yanone Kaffeesatz";
   position: relative;
   z-index: 1;
-  width: 120%;
   right: 1rem;
   height: 5rem;
+  border-radius: 0px;
   background-color: var(--faded-green);
   border-bottom: solid var(--light-green);
   margin-bottom: 1rem;
@@ -229,6 +233,7 @@ nav {
     text-decoration: none;
     color: white;
     font-size: large;
+    transition-duration: 700ms;
   }
   & p {
     border: solid 2px transparent;
@@ -236,6 +241,9 @@ nav {
   }
   & p:hover {
     border-bottom: solid 2px var(--light-purple);
+  }
+  & a:hover {
+    color: var(--light-purple);
   }
   & > h1 {
     margin-top: auto;
@@ -247,15 +255,28 @@ nav {
   & .main-flex {
     align-content: center;
     background-color: var(--dark-blue);
-    width: 30%;
     position: relative;
     top: 15%;
-    left: 1rem;
-    border-radius: 5px;
     box-shadow: 2px 2px 5px 1px #0000008a;
     text-shadow: 0px 1px 2px BLACK;
+    & > div {
+      align-self: center;
+      margin-left: auto;
+      margin-right: 2rem;
+      
+    }
+    & .home {
+      margin-left: 2rem;
+    }
   }
 }
+
+.first {
+  padding-right: .5rem;
+  margin-right: .5rem;
+  border-right: 2px solid var(--light-green);
+}
+
 
 .flex-col {
   display: flex;
@@ -313,14 +334,13 @@ button {
   padding: 5px;
   color: white;
   background-color: var(--light-purple);
-  transition: all 0.2s ease-in-out;
+  transition-duration: 500ms;
   font-family: "Yanone Kaffeesatz";
   font-size: initial;
 }
 
 input[type="text"] {
   width: 100%;
-  height: 2rem;
   border-radius: 5px;
 }
 
@@ -328,6 +348,7 @@ button,
 input[type="text"] {
   outline: none;
   border: solid transparent;
+  margin-bottom: 5px;
 }
 
 input[type="text"].invalid {

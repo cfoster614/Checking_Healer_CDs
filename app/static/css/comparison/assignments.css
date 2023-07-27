@@ -1,10 +1,18 @@
+.flex-sub {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80%;
+  justify-content: space-between;
+}
 .main-flex-col {
     justify-content: space-around;
     padding-bottom: 1rem;
+    box-shadow:none;
   }
   
   .flex-img {
     justify-content: flex-start;
+    border-bottom: var(--dark-green);
     & .flex {
       align-items: center;
       justify-content: center;
@@ -15,7 +23,7 @@
       & > h3 {
         position: absolute;
         z-index: 2;
-        top: 7rem;
+        top: 9rem;
         padding: 5px;
         width: 7rem;
         background-color: #a11010;
@@ -29,18 +37,27 @@
 
   .players.main-flex-col { 
     padding: 0.5rem;
+    
     justify-content: space-evenly;
-    box-shadow: 2px 1px 5px 1px #0000008a;
+    background-color: transparent;
        position: relative;
        z-index: 2;
-       background-color: var(--dark-green);
-       left: 2.5px;
+      
        max-width: fit-content;
-       border-radius: 0px;
+       border-top-right-radius: 0px;
+       border-bottom-right-radius: 0px;
+       border-top: solid 2px transparent;
      & > div {
        position:relative;
-       top: 20px;
+       top: 1.5rem;
      }
    }
-   
+  
+.flex-players {
+  background-color: #0f2426d4;
+  box-shadow: 2px 2px 5px 1px #0000008a;
+  position: relative;
+  z-index: 100;
+  border-left: 0px;
+}
   
