@@ -12,4 +12,4 @@ class Config:
 class TestConfig:
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL', 'postgresql:///warcraft_logs_test')
-
+    SECRET_KEY = 'testing'

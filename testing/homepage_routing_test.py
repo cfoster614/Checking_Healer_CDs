@@ -45,7 +45,7 @@ class HomepageTestCase(TestCase):
                 'log-input': '',
                 'boss-list': BOSS,
             }
-            error = '<p class="danger">Invalid log url.</p>'
+            error = '<div class="alert">Invalid log url.</div>'
             response = client.post('/healers_home', data=data, follow_redirects=True)
             self.assertEqual(response.status_code, 200)
             
@@ -60,7 +60,7 @@ class HomepageTestCase(TestCase):
                 'log-input': 'https://www.warcraftlogs.com/reports/btCAvx',
                 'boss-list': BOSS,
             }
-            error = '<p class="danger">Invalid log url.</p>'
+            error = '<div class="alert">Invalid log url.</div>'
             response = client.post('/healers_home', data=data, follow_redirects=True)
             self.assertEqual(response.status_code, 200)
             
