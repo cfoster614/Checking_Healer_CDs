@@ -232,7 +232,7 @@ nav {
   & p > a {
     text-decoration: none;
     color: white;
-    font-size: large;
+    font-size: x-large;
     transition-duration: 700ms;
   }
   & p {
@@ -256,13 +256,14 @@ nav {
     align-content: center;
     background-color: var(--dark-blue);
     position: relative;
-    top: 15%;
+    top: .5rem;
     box-shadow: 2px 2px 5px 1px #0000008a;
     text-shadow: 0px 1px 2px BLACK;
     & > div {
       align-self: center;
       margin-left: auto;
       margin-right: 2rem;
+      font-size:larger;
       
     }
     & .home {
@@ -337,10 +338,12 @@ button {
   transition-duration: 500ms;
   font-family: "Yanone Kaffeesatz";
   font-size: initial;
+
+  font-size: larger;
 }
 
 input[type="text"] {
-  width: 100%;
+  font-size: medium;
   border-radius: 5px;
 }
 

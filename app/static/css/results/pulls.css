@@ -23,7 +23,7 @@ form {
     & ul {
       list-style-type: none;
       overflow: auto;
-      height: 60%;
+      height: 70%;
       position: relative;
       bottom: 3rem;
       padding: 1rem;
@@ -32,11 +32,12 @@ form {
       & .pulls {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: .5rem;
+        font-size: larger;
         & .sub-flex {
           justify-content: space-between;
           background-color: var(--dark-blue);
-          padding: 7px;
-          margin: 4px;
+          padding: 1rem;
         }
         & .sub-flex.box {
           transition-duration: 500ms;

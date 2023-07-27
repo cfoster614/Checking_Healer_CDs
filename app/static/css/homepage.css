@@ -25,6 +25,10 @@ input[type="text"]:focus {
     border: solid 2px var(--light-green);
 }
 
+input[type="text"]{
+    width: 70%;
+    height: 2rem;
+}
 button {
     padding: 5px;
     background-color: var(--light-purple);
@@ -46,5 +50,12 @@ button:hover {
 
 .sub-static-container {
     padding: 0rem 2rem 1rem;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+p {
+    font-size: larger;
 }
 

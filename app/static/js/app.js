@@ -13,7 +13,7 @@ function addSpellHandler() {
     const newTimerBtn = $('<button>', { type: "button", class: 'btn timer-btn', text: 'Add new time' });
     const newTimeInput = $('<div>', { class: 'timers-wrapper sub-grid' }).append($('<input>', { type: 'text', class: 'timers', name: '', placeholder: '00:10'}));
     const spellWrapDiv = $('<div>', { class: 'spell-wrapper' }).append(newSpellInput, newPlayerInput, newTimerBtn);
-    const newDiv = $('<div>', { class: 'spell-input-box sub-static-container box' }).append($('<div>', { class: 'form-header'}), spellWrapDiv, newTimeInput);
+    const newDiv = $('<div>', { class: 'spell-input-box sub-static-container box'}).append($('<div>', { class: 'form-header'}), spellWrapDiv, newTimeInput);
     
     $('#spell-form').append(newDiv);
 }
