@@ -17,7 +17,7 @@ def populate_bosses():
         Boss.add_boss(boss_id=2693, name="The Forgotten Experiments", icon=f"{URL}forgottenexperiments.jpg"),
         Boss.add_boss(boss_id=2680, name="Rashok, the Elder", icon=f"{URL}rashok.jpg", nickname="Rashok"),
         Boss.add_boss(boss_id=2689, name="The Vigilant Steward, Zskarn", icon=f"{URL}zskarn.jpg", nickname="Zskarn"),
-        Boss.add_boss(boss_id=2683, name="'Magmorax", icon=f"{URL}magmorax.jpg"),
+        Boss.add_boss(boss_id=2683, name="Magmorax", icon=f"{URL}magmorax.jpg"),
         Boss.add_boss(boss_id=2684, name="Echo of Neltharion", icon=f"{URL}neltharion.jpg", nickname="Neltharion"),
         Boss.add_boss(boss_id=2685, name="Scalecommander Sarkareth", icon=f"{URL}sarkareth.jpg", nickname="Sarkareth")
     ]

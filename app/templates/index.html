@@ -49,8 +49,12 @@
     <button>Fetch report!</button>
   </fieldset>
 </form>
-{% if error %}
-    <p class="danger">{{ error }}</p>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+    <div class="alert">{{ message }}</div>
+{% endfor %}
 {% endif %}
+{% endwith %}
 
 {% endblock %}

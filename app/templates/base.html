@@ -17,20 +17,24 @@
     <title>{% block title %}Document{% endblock %}</title>
 </head>
 
-<body>
+<body {% block class %}class="PageType"{% endblock %}>
     <div id="main-wrapper" class="main-container">
     <nav>
         {% if path == "/healers_home" %}
         <h1>Healer Assignment Checker</h1>
         {% elif "/comparison" in path %}
         <div class="main-flex">
-            <p class="home"><a href = "/healers_home">Home</a></p>
-            <p class=""><a href="/healers_home/report{{boss}}{{code}}">Pulls</a></p>
+            <p class="home first"><a href = "/healers_home">Home</a></p>
+            <p><a href="/healers_home/report{{boss}}_{{code}}">Pulls</a></p>
                 {{boss.id}}
+            {% block header_comparison %}
+            {% endblock %}
         </div>
         {% else %}
         <div class="main-flex">
         <p class="home"><a href = "/healers_home">Home</a></p>
+        {% block header %}
+        {% endblock %}
         </div>
         {% endif %}
     </nav>
@@ -42,6 +46,7 @@
     <script src="/static/js/apiQuerying.js"></script>
     <script src="/static/js/models.js"></script>
     <script src="/static/js/app.js"></script>
+    <script src="/static/js/timeline.js"></script>
     <script src="/static/js/eventHandlers.js"></script>
 </body>
 

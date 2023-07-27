@@ -14,8 +14,10 @@ def url_to_log_code(url):
     
     pattern = fr"(?<=/reports/)([^/#]{{16,}})"
     match = re.search(pattern, url)
+  
     if match:
         code = match.group(1)
+      
     else:
         code = None
     return code
@@ -27,9 +29,15 @@ def report_data(code, boss):
     Just need the report code and the encounterID.
     Gives list of all wipes/kills from that boss.
     """
+   
     query = f'''
-        query reportData {{
-            reportData {{report(code: "{code}"){{
+    query reportData {{
+        reportData {{
+            report(code: "{code}") {{
+                guild {{
+                    name
+                }}
+                title
                 fights(killType: Encounters, encounterID: {boss}) {{
                     encounterID, 
                     difficulty, 
@@ -42,16 +50,32 @@ def report_data(code, boss):
             }}
         }}
     }}
-    '''
+'''
     results = run_query(query)
     
     try:
+        
+        if results is None:
+            return {
+            'encounters': False,
+            'log_title': None,
+            'guild': None
+        }
+            
         encounters= results['data']['reportData']['report']['fights']
+        guild = results['data']['reportData']['report']['guild']
+        log_title = results['data']['reportData']['report']['title']
+        
+        result_data = {
+            'encounters' : encounters,
+            'guild' : guild,
+            'log_title' : log_title
+        }
         
     except (KeyError) as e:
         print(f"Error accessing response data: {e}")
         
-    return encounters
+    return result_data
 
 
 def serialized_encounter(self):
@@ -89,15 +113,16 @@ def fight_data(code, fightID):
        
         return time_dict
     
-            
+      
 def correct_spell(spell_list, code, fightID, fight_info):
     """
     Query report using the spells given and the fightID. 
     This gives us all the spell data/player data we need.
     """
+   
     
     spells_list = [Spell.query.filter_by(name = spell_name).all() for spell_name in spell_list] #Take spell list and make new list with spell ids for query.
-        
+     
     spell_data = []
     for spell in spells_list: #Run a query for every spell given. 
         for s in spell:
@@ -119,20 +144,30 @@ def correct_spell(spell_list, code, fightID, fight_info):
                 simplified_data.append({'spell' : s.name, 'ability' : ability})
                 
             for player_data in spell_info:
-                #Simplify the data to an easier format for flask template, only info we need.
-                name = player_data['name']
-                abilities = []
-
-                for event in player_data['events']:
-                    for e in event:
-                        if 'timestamp' in e and 'ability' in e and 'name' in e['ability'] and 'abilityIcon' in e['ability']:
-                            ability_data = [e['ability']['name'], e['timestamp'] - fight_info['start'], e['ability']['abilityIcon'], e['type']]
-                            abilities.append(ability_data)
-                    simplified_data.append({'name': name, 'abilities': abilities})
+                player_abilities = PlayerAbilities(player_data, fight_info)
+                
+                simplified_data.append(player_abilities)
             spell_data.append(simplified_data)
-            
+    
     return spell_data
             
+            
+
+class PlayerAbilities:
+    def __init__(self, player_data, fight_info):
+        self.name = player_data['name'].lower()
+        self.abilities = []
+        self._extract_abilities(player_data, fight_info)
+    
+    def __repr__(self):
+        return f"<player_name: {self.name}, abilities: {self.abilities}>"
+
+    def _extract_abilities(self, player_data, fight_info):
+        for event in player_data['events']:
+            for e in event:
+                if 'timestamp' in e and 'ability' in e and 'name' in e['ability'] and 'abilityIcon' in e['ability']:
+                    ability_data = [e['ability']['name'], e['timestamp'] - fight_info['start'], e['ability']['abilityIcon'], e['type']]
+                    self.abilities.append(ability_data)
 
 
                 

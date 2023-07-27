@@ -12,7 +12,8 @@ def populate_spells():
         Spell.add_spell(spell_id=363534, name="Rewind",                          icon=f"{URL}ability_evoker_rewind.jpg"),
         Spell.add_spell(spell_id=359816, name="Dreamflight",                     icon=f"{URL}ability_evoker_dreamflight.jpg"),
         Spell.add_spell(spell_id=370562, name="Stasis",                          icon=f"{URL}ability_evoker_stasis.jpg"),
-        Spell.add_spell(spell_id=374227, name="Zephyr",                          icon=f"{URL}ability_evoker_hoverblack.jpg")
+        Spell.add_spell(spell_id=374227, name="Zephyr",                          icon=f"{URL}ability_evoker_hoverblack.jpg"),
+        Spell.add_spell(spell_id=406732, name="Spatial Paradox",                 icon=f"{URL}ability_evoker_stretchtime.jpg")
     ]        
 
     DRUID = [        
@@ -41,7 +42,8 @@ def populate_spells():
         Spell.add_spell(spell_id=6940,   name="Blessing of Sacrifice",           icon=f"{URL}spell_holy_sealofsacrifice.jpg"),
         Spell.add_spell(spell_id=200025, name="Beacon of Virtue",                icon=f"{URL}ability_paladin_beaconofinsight.jpg"),
         Spell.add_spell(spell_id=216331, name="Avenging Crusader",               icon=f"{URL}ability_paladin_veneration.jpg"),
-        Spell.add_spell(spell_id=114158, name="Light's Hammer",                  icon=f"{URL}spell_paladin_lightshammer.jpg")
+        Spell.add_spell(spell_id=114158, name="Light's Hammer",                  icon=f"{URL}spell_paladin_lightshammer.jpg"),
+        Spell.add_spell(spell_id=414170, name="Daybreak",                        icon=f"{URL}spell_holy_aspiration.jpg")
     ]
 
     DISC_PRIEST = [             

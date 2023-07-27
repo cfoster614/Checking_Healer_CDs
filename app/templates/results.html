@@ -3,6 +3,13 @@
 <link rel="stylesheet" href="/static/css/results/pulls.css">
 <link rel="stylesheet" href="/static/css/results/spells.css">
 {% endblock %}
+
+{% block header %}
+<div>
+<span class="first">{{guild.name}}</span>
+<span>{{log_title}}</span>
+</div>
+{% endblock %}
 {% block content %}
 
 <form method="POST">
@@ -32,8 +39,8 @@
                         </div>
                     {% else %}
                         <div class="wipe">
-                            Wipe {{wipe_count.value}}
-                            {{e.fightPercentage}}% 
+                            <span class="first">Wipe {{wipe_count.value}}</span>
+                            <span>{{e.fightPercentage}}%</span> 
                         </div>
                         <div class="wipe">
                             {{readable_time(e.endTime - e.startTime)}}
@@ -46,13 +53,15 @@
             </li> 
         </ul>
     </fieldset>
-    <fieldset class="main-static-container box spells">
+    {% if 'spell_times' not in session or not session['spell_times'] %}
+    <fieldset class="main-static-container box spells" id="spell-selection">
         <h3 class="title-box">Add a spell!</h3>
         <div class="main-grid" id="spell-form">
             <div class="spell-input-box sub-static-container box">
                 <div class="form-header"></div>
                 <div class="spell-wrapper">
                     <input type="text" class="spells" placeholder="Revival" id="spells-input-0" name="spells" autocomplete="off">
+                    <input type="text" class="player-name" placeholder="Player name" name="player-name">
                     <button type="button" class="btn timer-btn">Add new time</button>
                 </div>
                 <div class ="timers-wrapper sub-grid">
@@ -61,11 +70,36 @@
             </div>
         </div>
     </fieldset>
-    <button class="btn add-btn" type="button">Add new spell</button>
-    <button class="final-btn">See result!</button>
-    {% if error %}
-        <p class="danger">{{error}}</p>
+    {% else %}
+    <fieldset class="main-static-container box spells" id="spell-selection">
+        <h3 class="title-box">Add a spell!</h3>
+        <div class="main-grid" id="spell-form">
+            {% for assignment in assignment_data %}
+            <div class="spell-input-box sub-static-container box">
+                <div class="form-header flex-img title-box"><img src="{{assignment.icon}}"></div>
+                <div class="spell-wrapper">
+                    <input type="text" class="spells" placeholder="Name of cooldown" id="spells-input-0" name="spells {{assignment.player_name}}" autocomplete="off" value="{{assignment.name}}">
+                    <input type="text" class="player-name" placeholder="Player name" name="player-name" value="{{assignment.player_name}}">
+                    <button type="button" class="btn timer-btn">Add new time</button>
+                </div>
+                <div class ="timers-wrapper sub-grid">
+                    {% for time in assignment['times'] %}
+                    <input type="text" name="{{assignment.name}} {{assignment.player_name}} timers" class="timers" placeholder="00.10" value="{{time}}">
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </fieldset>
     {% endif %}
+    <div class="main-flex">
+    <button class="btn add-btn" type="button">Add new spell</button>
+    <button class="btn delete" type="button">Clear spells</button>
+    <button class="final-btn">See result!</button>
+    </div>
+    {% for message in get_flashed_messages() %}
+        <div class="alert">{{error}}</div>
+    {% endfor %}
 </form>
 
 {% endblock %}

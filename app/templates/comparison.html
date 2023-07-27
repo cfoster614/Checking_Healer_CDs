@@ -3,26 +3,29 @@
 <link rel="stylesheet" href="/static/css/comparison/timeline.css">
 <link rel="stylesheet" href="/static/css/comparison/assignments.css">
 {% endblock %}
+{% block class %}
+class="Timeline"
+{% endblock %}
+{% block header_comparison %}
+<div>
+    <span class="first">{{guild.name}}</span>
+    <span>{{log_title}}</span>
+</div>
+{% endblock %}
 {% block content %}
 
 <div class="container-wrapper main-flex-col main box">
-    <h2 class="title-box">Your Assignments{{boss.boss_id}}</h2>
+    <h2 class="title-box">Your Assignments</h2>
     <div class="assignment-container main-flex">
-        {% for spell in timers %}
-            <div class="flex-img box">
+        {% for assignment in assignment_data %}
+            <div class="flex-img box spell">
                 <div class="flex">
-                    {% for event in events %}
-                    {% for player in event %}
-                    {% if player.spell == spell['name'] %}
-                        <h3>{{player.ability}}</h3>
-                    {% endif %}
-                    {% endfor %}
-                    {% endfor %}
-                    <h4 class="title">{{spell['name']}}</h4>
-                    <img src="{{spell['icon']}}">
+                    
+                    <h4 class="title">{{assignment.player_name}}<br> {{assignment.name}}</h4>
+                    <img src="{{assignment.icon}}">
                 </div>
                 <div class="flex-sub">
-                {% for time in spell['times'] %}
+                {% for time in assignment['times'] %}
                     <p>{{time}}</p>
                 {% endfor %}
                 </div>
@@ -31,20 +34,27 @@
     </div>
 </div>
 
-<div class="spell-timeline-container box">
-    <div class="flex">
-        <div class="players main-flex-col">
-            {% for event in events %}
-            {% for player in event %}
+<div class="flex flex-players box">
+    {% set displayed_names = [] %}
+    
+    <div class="players main-flex-col">
+        {% for assignment in assignment_data %}
+        {% if assignment['player_name'] not in displayed_names %}
+        
             <div>
-                {{player.name}}
+                {{assignment['player_name']}}
             </div>
-            {% endfor %}
-            {% endfor %}
-        </div>
+        {% set _ = displayed_names.append(assignment['player_name']) %}
+        {% endif %}
+        {% endfor %}
+    </div>
+
+<div class="spell-timeline-container">
+    <div class="flex">          
+        
         <div class="spell-timeline">
             <div class="timeline-container">
-                <div>
+                <div class="timeline">
                     {% for second in range(0, seconds, 2) %}
                     <div class="time {% if second % 30 == 0 %}show-text{% elif second % 10 == 0 %}show-line{% endif %}"
                     data-duration="{{ '%02d:%02d' | format(second // 60, second % 60) }}">
@@ -52,24 +62,30 @@
                     {% endfor %}
                 </div>
             </div>
-            {% for event in events %}
-            {% for player in event %}
+           
+            {% for player_name in displayed_names %}
                 <div class="lane">
+                {% for event in events %}
+                {% for player in event %}
+                {% if player.name == player_name %}
                     {% for ability in player.abilities %}
                     {% if ability[3] != 'begincast' %}
-                        <div class="spell" style="left: calc({{ (ability[1] / duration) * 100}}%);">
-                        <img src="https://wow.zamimg.com/images/wow/icons/medium/{{ ability[2] }}">
-                    {{readable_time(ability[1])}}
-                    {{ability[1]}}
+                        <div class="spell {{player.name}} {{ ability[0] }}" style="left: calc({{ (ability[1] / duration) * 100}}%);">
+                            <div class="main-flex">
+                                <img src="https://wow.zamimg.com/images/wow/icons/medium/{{ ability[2] }}">
+                                {{readable_time(ability[1])}}
+                            </div>
                         </div>
                     {% endif %}
                     {% endfor %}
+                {% endif %}
+                {% endfor %}
+                {% endfor %}  
                 </div>
-            {% endfor %}
             {% endfor %}
         </div>
     </div>
 </div>
-
+</div>
 
 {% endblock%}
