@@ -9,12 +9,12 @@ function addSpellHandler() {
     $('.suggestions').empty(); //TODO: Make this universal to reduce code. Anytime a user clicks off of the suggestions.
     
     const newSpellInput = $('<input>', { type: 'text', class: 'spells center', name: 'spells', placeholder: 'Revival', autocomplete: 'off'}); 
+    const newPlayerInput = $('<input>', { type: 'text', class: 'player-name', name: 'player-name', placeholder: 'Player Name'})
     const newTimerBtn = $('<button>', { type: "button", class: 'btn timer-btn', text: 'Add new time' });
     const newTimeInput = $('<div>', { class: 'timers-wrapper sub-grid' }).append($('<input>', { type: 'text', class: 'timers', name: '', placeholder: '00:10'}));
-    const spellWrapDiv = $('<div>', { class: 'spell-wrapper' }).append(newSpellInput, newTimerBtn);
+    const spellWrapDiv = $('<div>', { class: 'spell-wrapper' }).append(newSpellInput, newPlayerInput, newTimerBtn);
     const newDiv = $('<div>', { class: 'spell-input-box sub-static-container box' }).append($('<div>', { class: 'form-header'}), spellWrapDiv, newTimeInput);
     
-
     $('#spell-form').append(newDiv);
 }
 
@@ -31,10 +31,7 @@ function addTimerHandler(e) {
     const value = $(e.target).siblings('.spells')
     let inputVal = value.val();
     
-    if (!inputVal) {
-        alert('Add a spell name first.');
-
-    } else if (container.children().length < 9) {
+    
         //Create new timer inputs.
         const newInput = $('<input>', { type: 'text', class: 'timers', name: `${inputVal}-timers`, placeholder: '00:10'});
         inputBox.find('.timers-wrapper').append(newInput); 
@@ -43,15 +40,7 @@ function addTimerHandler(e) {
          *This way we can group the timers by spell in the backend.
          */
 
-    } else {
-        container.off('click', addTimerHandler); //Turn off the ability to add more timers.
-        alert('Maximum number of timers allowed.') /**Currently I only want to allow 9 input timers so it's not cluttered. 
-                                                    *I don't think there are many cases where someone will want to check more than that anyway.
-                                                    */
-
-        //TODO: Do something other than an alert to prevent the user from create more timers.
-
-    }
+    
 }
 
 function search(arr, target) {
@@ -131,6 +120,8 @@ function useSuggestion(e) {
 function newSuggestionsList() {
     $('.suggestions').empty(); //To ensure no suggestions are shown when clicking a new input.
 }
+
+
 
 
 

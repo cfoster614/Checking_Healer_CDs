@@ -20,7 +20,7 @@ async function getSpellInfo() {
         let filteredSpells = [];
         for (let i = 0; i < arr.length; i++) {
             const name = (arr[i]['name']);
-            console.log(arr[i])
+            
             if(!filteredSpells.includes(name)){
                 const newSpell = new Spell((arr[i]['spell_id']), name, (arr[i]['icon']) );
                 cachedSpells.push(newSpell);
