@@ -1,6 +1,6 @@
 from flask import Flask, session
 
-# from flask_cors import CORS
+from flask_cors import CORS
 
 from config import Config
 from app.extensions import db
@@ -8,7 +8,7 @@ from app.extensions import db
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(config_class)
-    
+    CORS(app, origins=['https://wowhealer-assignments.onrender.com'])
     # Initialize Flask extensions here
     db.init_app(app)
 
